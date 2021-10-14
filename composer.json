@@ -1,0 +1,19 @@
+{
+    "name": "zhr/newlink",
+    "description": "newlink api",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Zhr\\Newlink\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "zhr",
+            "email": "1456529353@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
