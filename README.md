@@ -3,6 +3,7 @@
 ## 初始化
 
         composer require zhr/newlink
+        php artisan vendor:publish --tag="laravel-newlink"
 
 ## 使用方法
 
