@@ -36,6 +36,18 @@
 * 查询油站状态油价
 
         getOilsDetail(['zt1262668132'], $phone);
+
+* 附近油站
+
+        $position = ['lat' => 'xxxxx', 'lng' => 'xxxxx'];
+        $oilNo = 92;
+        $data = [
+            'brand' => 'xx', // 查询品牌ID，多个品牌用英文逗号分隔，默认查询所有品牌
+            'phone' => 'xxx', // 手机号
+            'sort' => 0, // 排序方式。0：按距离，1：按价格。默认按价格排序
+            'range' => 1, // 查找范围，具体值见下表，默认查所有
+            ];(可选参数)
+        nearbyOils($paginate,$position,$oilNo,$data);
         
 ### Platform for Order 订单管理
 

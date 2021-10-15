@@ -42,6 +42,11 @@ class Oil extends Client
         return json_decode($response->getBody()->getContents(), true);
     }
 
+    /**
+     * 油站数据
+     *
+     * @return void
+     */
     public function getOilList()
     {
         $query = [
@@ -53,6 +58,13 @@ class Oil extends Client
         return json_decode($response->getBody()->getContents(), true);
     }
 
+    /**
+     * 油站详情
+     *
+     * @param array $gasIds
+     * @param string $phone
+     * @return void
+     */
     public function getOilsDetail(array $gasIds, string $phone)
     {
         $query = [
@@ -63,6 +75,54 @@ class Oil extends Client
             'timestamp' => msectime()
         ];
         $response = $this->httpPost($this->urlPrefix.'/gas/queryPriceByPhone', $query);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * 附近油站
+     *
+     * @param array $paginate
+     * @param array $position
+     * @param string $oilNo
+     * @param array $data
+     * @return void
+     */
+    public function nearbyOils(array $paginate, array $position, string $oilNo, array $data = [])
+    {
+        $query = [
+            'app_key' => $this->app['config']['app_key'],
+            'platformType' => $this->app['config']['platformId'],
+            'timestamp' => msectime(),
+            'pageIndex' => $paginate['page'],
+            'pageSize' => $paginate['size'],
+            'userLatStr' => $position['lat'],
+            'userLngStr' => $position['lng'],
+            'oilNo' => $oilNo,
+        ];
+        // 手机号
+        if(isset($data['userPhone'])){
+            $query['userPhone'] = $data['phone'];
+        }
+        // 查询品牌ID，多个品牌用英文逗号分隔，默认查询所有品牌
+        if(isset($data['brandTypes'])){
+            $query['brandTypes'] = $data['brand'];
+        }
+        // 排序方式。0：按距离，1：按价格。默认按价格排序
+        if(isset($data['sort'])){
+            $query['sort'] = $data['sort'];
+        }
+        // 查找范围，具体值见下表，默认查所有
+        // 2公里	1
+        // 6公里	2
+        // 10公里	3
+        // 15公里	4
+        // 20公里	5
+        // 50公里	6
+        // 500米	7
+        if(isset($data['range'])){
+            $query['range'] = $data['range'];
+        }
+        $response = $this->httpPost($this->urlPrefix.'/gasws/channel/gasListV2', $query);
         return json_decode($response->getBody()->getContents(), true);
     }
 }
