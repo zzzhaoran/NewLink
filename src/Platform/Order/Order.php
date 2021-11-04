@@ -44,17 +44,17 @@ class Order extends Client
             'timestamp' => msectime()
         ];
         // 订单时间 时间格式 2017-09-27 00:00:00
-        if(isset($data['beginTime'])){
-            $query['beginTime'] = date('Y-m-d H:i:s', $data['beginTime']);
-            $query['endTime'] = date('Y-m-d H:i:s', $data['endTime']);
+        if(isset($data['begin_time'])){
+            $query['beginTime'] = date('Y-m-d H:i:s', $data['begin_time']);
+            $query['endTime'] = date('Y-m-d H:i:s', $data['end_time']);
         }
         // 订单状态  (1:已支付;4:退款申请中;5:已退款;6:退款失败;)
-        if(isset($data['orderStatus'])){
-            $query['orderStatus'] = $data['orderStatus'];
+        if(isset($data['status'])){
+            $query['orderStatus'] = $data['status'];
         }
         // 订单号
-        if(isset($data['orderId'])){
-            $query['orderId'] = $data['orderId'];
+        if(isset($data['orderid'])){
+            $query['orderId'] = $data['orderid'];
         }
         // 手机号
         if(isset($data['phone'])){

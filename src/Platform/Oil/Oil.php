@@ -72,6 +72,7 @@ class Oil extends Client
             'platformType' => $this->app['config']['platformId'],
             'gasIds' => implode(',', $gasIds),
             'phone' => $phone,
+            'requireLabel' => true,
             'timestamp' => msectime()
         ];
         $response = $this->httpPost($this->urlPrefix.'/gas/queryPriceByPhone', $query);
@@ -100,11 +101,11 @@ class Oil extends Client
             'oilNo' => $oilNo,
         ];
         // 手机号
-        if(isset($data['userPhone'])){
+        if(isset($data['phone'])){
             $query['userPhone'] = $data['phone'];
         }
         // 查询品牌ID，多个品牌用英文逗号分隔，默认查询所有品牌
-        if(isset($data['brandTypes'])){
+        if(isset($data['brand'])){
             $query['brandTypes'] = $data['brand'];
         }
         // 排序方式。0：按距离，1：按价格。默认按价格排序
@@ -124,5 +125,18 @@ class Oil extends Client
         }
         $response = $this->httpPost($this->urlPrefix.'/gasws/channel/gasListV2', $query);
         return json_decode($response->getBody()->getContents(), true);
+    }
+
+
+    /**
+     * 支付链接
+     *
+     * @param string $code
+     * @param string $gasId
+     * @param string $gunNo
+     * @return void
+     */
+    public function payUrl(string $code, string $gasId, string $gunNo){
+        return "https://test-open.czb365.com/redirection/todo/?platformType={$this->app['config']['platformId']}&authCode={$code}&gasId={$gasId}&gunNo={$gunNo}";
     }
 }

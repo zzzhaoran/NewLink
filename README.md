@@ -55,11 +55,11 @@
 
         $paginate = ['page' => 1, 'size' => 10];
         $data = [
-            'orderStatus' => '1:已支付;4:退款申请中;5:已退款;6:退款失败;',
-            'orderId' => '订单号',
+            'status' => '1:已支付;4:退款申请中;5:已退款;6:退款失败;',
+            'orderid' => '订单号',
             'phone' => '手机号',
-            'beginTime' => '开始时间',
-            'endTime' => '结束时间',
+            'begin_time' => '开始时间',
+            'end_time' => '结束时间',
             ];(可选参数)
 
         $app->order->orderInfo($paginate, $data);
