@@ -58,6 +58,21 @@ class Client extends Request
     }
 
     /**
+     * Http Post Params.
+     *
+     * @param string $url
+     * @param array $data
+     * @return mixed
+     */
+    public function httpPostParams(string $url, array $query = [], array $form_params = [])
+    {
+        return $this->request($url, 'POST', [
+            'query' => $query,
+            'form_params' => $form_params,
+        ]);
+    }
+
+    /**
      * Http Post Json.
      *
      * @param string $url

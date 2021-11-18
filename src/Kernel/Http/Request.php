@@ -62,7 +62,11 @@ class Request
             throw new InvalidArgumentException('options must be array');
         }
 
-        $options['query']['sign'] = $this->generateSign($options['query']);
+        if(get_class($this->app) == "Zhr\NewLink\Platform\Application"){
+            $options = $this->getOilOptions($options);
+        }elseif(get_class($this->app) == "Zhr\NewLink\Electricity\Application"){
+            $options = $this->getElectricityOptions($options);
+        }
 
         return $options;
     }
@@ -88,19 +92,41 @@ class Request
 
 
     /**
-     * generate sign
+     * getOilOptions
      *
      * @param array $options
      * @return string
      */
-    protected function generateSign($query): string
+    protected function getOilOptions($options)
     {
         // 按照字母方式排序
-        ksort($query);
+        ksort($options['query']);
         $_sign = $this->app_secret;
-        foreach ($query as $key => $value) {
+        foreach ($options['query'] as $key => $value) {
             $_sign .= $key . $value;
         }
-        return md5($_sign . $this->app_secret);
+        $options['query']['sign'] = md5($_sign . $this->app_secret);
+        return $options;
+    }
+
+    /**
+     * getElectricityOptions
+     *
+     * @param array $options
+     * @return string
+     */
+    protected function getElectricityOptions($options)
+    {
+        // 按照字母方式排序
+        ksort($options['query']);
+        $private_key = openssl_pkey_get_private(file_get_contents(config('newlink.electricity.private_key')));
+        $query = '';
+        foreach ($options['query'] as $key => $value) {
+            $query .= '&' . $key .'='. $value;
+        }
+        $query = substr($query, 1);
+        openssl_sign($query, $crypted, $private_key, OPENSSL_ALGO_MD5);
+        $options['query']['sig'] = base64_encode($crypted);
+        return $options;
     }
 }

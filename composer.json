@@ -14,7 +14,10 @@
     "autoload": {
       "psr-4": {
         "Zhr\\NewLink\\": "src/"
-      }
+      },
+      "files": [
+        "src/Kernel/Helpers.php"
+      ]
     },
     "extra": {
       "laravel": {
