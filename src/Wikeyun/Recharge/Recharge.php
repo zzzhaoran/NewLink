@@ -38,7 +38,7 @@ class Recharge extends Client
             'notify_url' => $this->app['config']['notify_url']
         ];
 
-        $query = format_param($this->app['config'] ,$params);
+        $query = format_param($this->app['config'], $params);
         $response = $this->httpPostParams($this->urlPrefix.'/pushOrder', $query, $params);
         return json_decode($response->getBody()->getContents(), true);
     }

@@ -36,6 +36,7 @@ class Oauth extends Client
     public function login(string $phone)
     {
         // 14天到期
+        Cache::forget($phone.'-electricity_token');
         return Cache::remember($phone.'-electricity_token', 1209600, $this->getToken($phone));
     }
 
