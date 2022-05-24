@@ -35,6 +35,8 @@ class Power extends Client
             'card_num' => $data['card_num'],
             'province' => $data['province'],
             'city' => $data['city'],
+            'remark' => $data['remark'] ?? '',
+            'type' => $data['type'] ?? 0
         ];
         $query = format_param($this->app['config'], $params);
         $response = $this->httpPostParams($this->urlPrefix.'/addCard', $query, $params);
@@ -55,6 +57,8 @@ class Power extends Client
             'card_num' => $data['card_num'],
             'province' => $data['province'],
             'city' => $data['city'],
+            'remark' => $data['remark'] ?? '',
+            'type' => $data['type'] ?? 0
         ];
         $query = format_param($this->app['config'], $params);
         $response = $this->httpPostParams($this->urlPrefix.'/editCard', $query, $params);

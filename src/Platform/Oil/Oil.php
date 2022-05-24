@@ -137,6 +137,6 @@ class Oil extends Client
      * @return void
      */
     public function payUrl(string $code, string $gasId, string $gunNo){
-        return "https://test-open.czb365.com/redirection/todo/?platformType={$this->app['config']['platformId']}&authCode={$code}&gasId={$gasId}&gunNo={$gunNo}";
+        return "https://open.czb365.com/redirection/todo/?platformType={$this->app['config']['platformId']}&authCode={$code}&gasId={$gasId}&gunNo={$gunNo}";
     }
 }
