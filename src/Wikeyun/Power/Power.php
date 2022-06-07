@@ -115,7 +115,7 @@ class Power extends Client
             'store_id' => $this->app['config']['store_id'],
             'cardId' => $cardId,
             'order_no' => $order_no,
-            'money' => $amount,
+            'amount' => $amount,
             'recharge_type' => $recharge_type,
             'notify_url' => $this->app['config']['notify_url']
         ];
