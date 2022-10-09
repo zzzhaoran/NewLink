@@ -59,4 +59,55 @@ class Recharge extends Client
         $response = $this->httpPostParams($this->urlPrefix.'/query', $query, $params);
         return json_decode($response->getBody()->getContents(), true);
     }
+
+    /**
+     * 取消订单
+     *
+     * @param [type] $order_no
+     * @return void
+     */
+    public function cancel($order_no)
+    {
+        $params = [
+            'order_number' => $order_no,
+        ];
+        $query = format_param($this->app['config'] ,$params);
+        $response = $this->httpPostParams($this->urlPrefix.'/cancel', $query, $params);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * 手机号详情
+     *
+     * @param [type] $order_no
+     * @return void
+     */
+    public function mobileInfo($mobile)
+    {
+        $params = [
+            'mobile' => $mobile,
+        ];
+        $query = format_param($this->app['config'] ,$params);
+        $response = $this->httpPostParams($this->urlPrefix.'/mobileInfo', $query, $params);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+
+    /**
+     * 手机号详情
+     *
+     * @param [type] $order_no
+     * @return void
+     */
+    public function verify($mobile, $money, $recharge_type)
+    {
+        $params = [
+            'mobile' => $mobile,
+            'money' => $money,
+            'recharge_type' => $recharge_type,
+        ];
+        $query = format_param($this->app['config'] ,$params);
+        $response = $this->httpPostParams($this->urlPrefix.'/verify', $query, $params);
+        return json_decode($response->getBody()->getContents(), true);
+    }
 }
