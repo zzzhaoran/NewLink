@@ -94,7 +94,7 @@ class Recharge extends Client
 
 
     /**
-     * 手机号详情
+     * 手机号验证
      *
      * @param [type] $order_no
      * @return void
@@ -103,7 +103,7 @@ class Recharge extends Client
     {
         $params = [
             'mobile' => $mobile,
-            'money' => $money,
+            'amount' => $money,
             'recharge_type' => $recharge_type,
         ];
         $query = format_param($this->app['config'] ,$params);
